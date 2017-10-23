@@ -13,5 +13,19 @@ namespace Assignment4.ViewModel
 {
     public class ModifyViewModel : ViewModelBase
     {
+        public RelayCommand<Window> CloseWindowCommand { get; private set; }
+
+        public ModifyViewModel()
+        {
+            this.CloseWindowCommand = new RelayCommand<Window>(this.CloseWindow);
+        }
+
+        private void CloseWindow(Window window)
+        {
+            if (window != null)
+            {
+                window.Close();
+            }
+        }
     }
 }

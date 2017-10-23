@@ -4,88 +4,103 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MMABooksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Customers">
+      <Schema Namespace="BooksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AuthorISBN">
           <Key>
-            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="AuthorID" />
+            <PropertyRef Name="ISBN" />
           </Key>
-          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="ZipCode" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="AuthorID" Type="int" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <EntityType Name="States">
+        <EntityType Name="Authors">
           <Key>
-            <PropertyRef Name="StateCode" />
+            <PropertyRef Name="AuthorID" />
           </Key>
-          <Property Name="StateCode" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="StateName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="AuthorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Customers_States">
-          <End Role="States" Type="Self.States" Multiplicity="1" />
-          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+        <EntityType Name="Titles">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EditionNumber" Type="int" Nullable="false" />
+          <Property Name="Copyright" Type="varchar" MaxLength="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AuthorISBN_Authors">
+          <End Role="Authors" Type="Self.Authors" Multiplicity="1" />
+          <End Role="AuthorISBN" Type="Self.AuthorISBN" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="States">
-              <PropertyRef Name="StateCode" />
+            <Principal Role="Authors">
+              <PropertyRef Name="AuthorID" />
             </Principal>
-            <Dependent Role="Customers">
-              <PropertyRef Name="State" />
+            <Dependent Role="AuthorISBN">
+              <PropertyRef Name="AuthorID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MMABooksModelStoreContainer">
-          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Customers_States" Association="Self.FK_Customers_States">
-            <End Role="States" EntitySet="States" />
-            <End Role="Customers" EntitySet="Customers" />
+        <Association Name="FK_AuthorISBN_Titles">
+          <End Role="Titles" Type="Self.Titles" Multiplicity="1" />
+          <End Role="AuthorISBN" Type="Self.AuthorISBN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Titles">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="AuthorISBN">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BooksModelStoreContainer">
+          <EntitySet Name="AuthorISBN" EntityType="Self.AuthorISBN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authors" EntityType="Self.Authors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Titles" EntityType="Self.Titles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AuthorISBN_Authors" Association="Self.FK_AuthorISBN_Authors">
+            <End Role="Authors" EntitySet="Authors" />
+            <End Role="AuthorISBN" EntitySet="AuthorISBN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AuthorISBN_Titles" Association="Self.FK_AuthorISBN_Titles">
+            <End Role="Titles" EntitySet="Titles" />
+            <End Role="AuthorISBN" EntitySet="AuthorISBN" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MMABooksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Customer">
+      <Schema Namespace="BooksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
           <Key>
-            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="AuthorID" />
           </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="ZipCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-          <NavigationProperty Name="State" Relationship="Self.FK_Customers_States" FromRole="Customers" ToRole="States" />
+          <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Titles" Relationship="Self.AuthorISBN" FromRole="Authors" ToRole="Titles" />
         </EntityType>
-        <EntityType Name="State">
+        <EntityType Name="Title">
           <Key>
-            <PropertyRef Name="StateCode" />
+            <PropertyRef Name="ISBN" />
           </Key>
-          <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="StateName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Customers" Relationship="Self.FK_Customers_States" FromRole="States" ToRole="Customers" />
+          <Property Name="ISBN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EditionNumber" Type="Int32" Nullable="false" />
+          <Property Name="Copyright" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Authors" Relationship="Self.AuthorISBN" FromRole="Titles" ToRole="Authors" />
         </EntityType>
-        <Association Name="FK_Customers_States">
-          <End Role="States" Type="Self.State" Multiplicity="1" />
-          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="States">
-              <PropertyRef Name="StateCode" />
-            </Principal>
-            <Dependent Role="Customers">
-              <PropertyRef Name="StateCode" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="AuthorISBN">
+          <End Role="Authors" Type="Self.Author" Multiplicity="*" />
+          <End Role="Titles" Type="Self.Title" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="MMABooksEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="States" EntityType="Self.State" />
-          <AssociationSet Name="FK_Customers_States" Association="Self.FK_Customers_States">
-            <End Role="States" EntitySet="States" />
-            <End Role="Customers" EntitySet="Customers" />
+        <EntityContainer Name="BooksEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="Titles" EntityType="Self.Title" />
+          <AssociationSet Name="AuthorISBN" Association="Self.AuthorISBN">
+            <End Role="Authors" EntitySet="Authors" />
+            <End Role="Titles" EntitySet="Titles" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -93,27 +108,34 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MMABooksModelStoreContainer" CdmEntityContainer="MMABooksEntities">
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="MMABooksModel.Customer">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="StateCode" ColumnName="State" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+        <EntityContainerMapping StorageEntityContainer="BooksModelStoreContainer" CdmEntityContainer="BooksEntities">
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="BooksModel.Author">
+              <MappingFragment StoreEntitySet="Authors">
+                <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="States">
-            <EntityTypeMapping TypeName="MMABooksModel.State">
-              <MappingFragment StoreEntitySet="States">
-                <ScalarProperty Name="StateCode" ColumnName="StateCode" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <EntitySetMapping Name="Titles">
+            <EntityTypeMapping TypeName="BooksModel.Title">
+              <MappingFragment StoreEntitySet="Titles">
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Title1" ColumnName="Title" />
+                <ScalarProperty Name="EditionNumber" ColumnName="EditionNumber" />
+                <ScalarProperty Name="Copyright" ColumnName="Copyright" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AuthorISBN" TypeName="BooksModel.AuthorISBN" StoreEntitySet="AuthorISBN">
+            <EndProperty Name="Authors">
+              <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
+            </EndProperty>
+            <EndProperty Name="Titles">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -135,12 +157,6 @@
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram DiagramId="b588352676ec4f83a851cf29f6a0e47d" Name="Diagram1">
-        <EntityTypeShape EntityType="MMABooksModel.Customer" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MMABooksModel.State" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="MMABooksModel.FK_Customers_States" ManuallyRouted="false" />
-      </Diagram>
-    </Diagrams>
+    <Diagrams></Diagrams>
   </Designer>
 </edmx:Edmx>

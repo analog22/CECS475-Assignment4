@@ -5,35 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assignment4"
         mc:Ignorable="d"
-        Title="Customer Maintenance" Height="350" Width="600">
+        Title="Customer Maintenance" Height="350" Width="550">
     <Grid DataContext="{Binding Main, Source={StaticResource Locator}}">
-        <Label Content="Customer ID"  HorizontalAlignment="Left" Margin="66,37,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="66,87,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-        <Label Content="Address" HorizontalAlignment="Left" Margin="66,117,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-        <Label Content="City" HorizontalAlignment="Left" Margin="66,147,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-        <Label Content="State" HorizontalAlignment="Left" Margin="66,177,0,0" VerticalAlignment="Top" Width="80" Height="30"/>
-        <Label Content="Zip Code" HorizontalAlignment="Left" Margin="396,177,0,0" VerticalAlignment="Top" Width="80" Height="30" RenderTransformOrigin="0.634,0.553"/>
-        <TextBox x:Name="CustomerIDBox" HorizontalAlignment="Left" Height="20" Margin="156,41,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"
+        <TextBlock HorizontalAlignment="Left" Margin="30,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="Customer ID"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="Name"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="Address"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="City"/>
+        <TextBlock HorizontalAlignment="Left" Margin="30,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="State"/>
+        <TextBlock HorizontalAlignment="Left" Margin="340,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="Zip Code" RenderTransformOrigin="3.757,-0.69"/>
+        <TextBox x:Name="CustomerIDBox" HorizontalAlignment="Left" Height="20" Margin="120,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="CustomerNameBox" HorizontalAlignment="Left" Height="20" Margin="120,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"
                  IsReadOnly="True"/>
-        <TextBox x:Name="CustomerNameBox" HorizontalAlignment="Left" Height="20" Margin="156,91,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="400"
+        <TextBox x:Name="CustomerAddressBox" HorizontalAlignment="Left" Height="20" Margin="120,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"
                  IsReadOnly="True"/>
-        <TextBox x:Name="CustomerAddressBox" HorizontalAlignment="Left" Height="20" Margin="156,121,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="400"
+        <TextBox x:Name="CustomerCityBox" HorizontalAlignment="Left" Height="20" Margin="120,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"
                  IsReadOnly="True"/>
-        <TextBox x:Name="CustomerCityBox" HorizontalAlignment="Left" Height="20" Margin="156,151,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="400"
+        <TextBox x:Name="CustomerStateBox" HorizontalAlignment="Left" Height="20" Margin="120,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"
                  IsReadOnly="True"/>
-        <TextBox x:Name="CustomerStateBox" HorizontalAlignment="Left" Height="20" Margin="156,181,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="225"
+        <TextBox x:Name="CustomerZipCodeBox" HorizontalAlignment="Left" Height="20" Margin="400,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"
                  IsReadOnly="True"/>
-        <TextBox x:Name="CustomerZipCodeBox" HorizontalAlignment="Left" Height="20" Margin="476,181,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="80"
-                 IsReadOnly="True"/>
-        <Button x:Name="GetCustomerButton" Content="Get Customer" HorizontalAlignment="Left" Margin="301,41,0,0" VerticalAlignment="Top" Width="120"
+        <Button x:Name="GetCustomerButton" Content="Get Customer" HorizontalAlignment="Left" Margin="265,40,0,0" VerticalAlignment="Top" Width="120"
                 Command="{Binding GetCustomerCommand}"/>
-        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="86,251,0,0" VerticalAlignment="Top" Width="75"
+        <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding AddCustomerCommand}"/>
-        <Button x:Name="ModifyButton" Content="Modify" HorizontalAlignment="Left" Margin="176,251,0,0" VerticalAlignment="Top" Width="75"
+        <Button x:Name="ModifyButton" Content="Modify" HorizontalAlignment="Left" Margin="140,250,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding ModifyCustomerCommand}"/>
-        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="266,251,0,0" VerticalAlignment="Top" Width="75"
+        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="230,250,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding DeleteCustomerCommand}"/>
-        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Margin="436,251,0,0" VerticalAlignment="Top" Width="75"
+        <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Margin="400,250,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding CloseWindowCommand, Mode=OneWay}"
                 CommandParameter="{Binding ElementName=MainView}"/>
     </Grid>

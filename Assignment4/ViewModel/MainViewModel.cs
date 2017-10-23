@@ -5,6 +5,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using Assignment4.Model;
 using Assignment4.View;
+using System;
 
 namespace Assignment4.ViewModel
 {
@@ -26,14 +27,22 @@ namespace Assignment4.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
 
+        public RelayCommand GetCustomerCommand { get; private set; }
         public RelayCommand AddCustomerCommand { get; private set; }
         public RelayCommand ModifyCustomerCommand { get; private set; }
         public RelayCommand<MainWindow> CloseWindowCommand { get; private set; }
 
         public MainViewModel()
         {
+            GetCustomerCommand = new RelayCommand(GetCustomerMethod);
             AddCustomerCommand = new RelayCommand(AddCustomerMethod);
+            ModifyCustomerCommand = new RelayCommand(ModifyCustomerMethod);
             this.CloseWindowCommand = new RelayCommand<MainWindow>(this.CloseWindow);
+        }
+
+        private void GetCustomerMethod()
+        {
+
         }
 
         private void AddCustomerMethod()
@@ -42,7 +51,7 @@ namespace Assignment4.ViewModel
             addView.Show();
         }
 
-        private void ModifyMemberMethod()
+        private void ModifyCustomerMethod()
         {
             ModifyView modView = new ModifyView();
             modView.Show();
