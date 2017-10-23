@@ -9,6 +9,8 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mmabooks.mdf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mmabooksmodel.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mmabooksmodel.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mmabooks_log.ldf")]
 
 

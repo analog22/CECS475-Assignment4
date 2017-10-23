@@ -13,17 +13,23 @@
         <TextBlock HorizontalAlignment="Left" Margin="30,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="City"/>
         <TextBlock HorizontalAlignment="Left" Margin="30,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="State"/>
         <TextBlock HorizontalAlignment="Left" Margin="340,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="20" Text="Zip Code" RenderTransformOrigin="3.757,-0.69"/>
-        <TextBox x:Name="CustomerIDBox" HorizontalAlignment="Left" Height="20" Margin="120,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="CustomerIDBox" HorizontalAlignment="Left" Height="20" Margin="120,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 Text="{Binding CustomerIDBox}"/>
         <TextBox x:Name="CustomerNameBox" HorizontalAlignment="Left" Height="20" Margin="120,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"
-                 IsReadOnly="True"/>
+                 IsReadOnly="True"
+                 Text="{Binding NameBox}"/>
         <TextBox x:Name="CustomerAddressBox" HorizontalAlignment="Left" Height="20" Margin="120,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"
-                 IsReadOnly="True"/>
+                 IsReadOnly="True"
+                 Text="{Binding AddressBox}"/>
         <TextBox x:Name="CustomerCityBox" HorizontalAlignment="Left" Height="20" Margin="120,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360"
-                 IsReadOnly="True"/>
+                 IsReadOnly="True"
+                 Text="{Binding CityBox}"/>
         <TextBox x:Name="CustomerStateBox" HorizontalAlignment="Left" Height="20" Margin="120,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"
-                 IsReadOnly="True"/>
+                 IsReadOnly="True"
+                 Text="{Binding StateBox}"/>
         <TextBox x:Name="CustomerZipCodeBox" HorizontalAlignment="Left" Height="20" Margin="400,180,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"
-                 IsReadOnly="True"/>
+                 IsReadOnly="True"
+                 Text="{Binding ZipCodeBox}"/>
         <Button x:Name="GetCustomerButton" Content="Get Customer" HorizontalAlignment="Left" Margin="265,40,0,0" VerticalAlignment="Top" Width="120"
                 Command="{Binding GetCustomerCommand}"/>
         <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Width="75"

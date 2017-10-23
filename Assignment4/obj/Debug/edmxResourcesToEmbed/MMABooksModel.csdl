@@ -5,12 +5,12 @@
       <PropertyRef Name="CustomerID" />
     </Key>
     <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-    <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-    <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-    <Property Name="ZipCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
-    <NavigationProperty Name="State" Relationship="Self.FK_Customers_States" FromRole="Customers" ToRole="States" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ZipCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="State1" Relationship="Self.FK_Customers_States" FromRole="Customers" ToRole="States" />
   </EntityType>
   <EntityType Name="State">
     <Key>
@@ -20,6 +20,16 @@
     <Property Name="StateName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Customers" Relationship="Self.FK_Customers_States" FromRole="States" ToRole="Customers" />
   </EntityType>
+  <EntityType Name="OrderOption">
+    <Key>
+      <PropertyRef Name="SalesTaxRate" />
+      <PropertyRef Name="FirstBookShipCharge" />
+      <PropertyRef Name="AdditionalBookShipCharge" />
+    </Key>
+    <Property Name="SalesTaxRate" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="FirstBookShipCharge" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="AdditionalBookShipCharge" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+  </EntityType>
   <Association Name="FK_Customers_States">
     <End Role="States" Type="Self.State" Multiplicity="1" />
     <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
@@ -28,13 +38,14 @@
         <PropertyRef Name="StateCode" />
       </Principal>
       <Dependent Role="Customers">
-        <PropertyRef Name="StateCode" />
+        <PropertyRef Name="State" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="MMABooksEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="States" EntityType="Self.State" />
+    <EntitySet Name="OrderOptions" EntityType="Self.OrderOption" />
     <AssociationSet Name="FK_Customers_States" Association="Self.FK_Customers_States">
       <End Role="States" EntitySet="States" />
       <End Role="Customers" EntitySet="Customers" />

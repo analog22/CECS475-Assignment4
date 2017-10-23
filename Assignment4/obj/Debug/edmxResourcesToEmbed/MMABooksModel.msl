@@ -8,7 +8,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="StateCode" ColumnName="State" />
+          <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -18,6 +18,15 @@
         <MappingFragment StoreEntitySet="States">
           <ScalarProperty Name="StateCode" ColumnName="StateCode" />
           <ScalarProperty Name="StateName" ColumnName="StateName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderOptions">
+      <EntityTypeMapping TypeName="MMABooksModel.OrderOption">
+        <MappingFragment StoreEntitySet="OrderOptions">
+          <ScalarProperty Name="SalesTaxRate" ColumnName="SalesTaxRate" />
+          <ScalarProperty Name="FirstBookShipCharge" ColumnName="FirstBookShipCharge" />
+          <ScalarProperty Name="AdditionalBookShipCharge" ColumnName="AdditionalBookShipCharge" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

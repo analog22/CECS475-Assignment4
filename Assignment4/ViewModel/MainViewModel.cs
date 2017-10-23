@@ -2,10 +2,13 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System.Windows;
+using System.Linq;
 using System.Collections.ObjectModel;
 using Assignment4.Model;
 using Assignment4.View;
 using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace Assignment4.ViewModel
 {
@@ -23,27 +26,185 @@ namespace Assignment4.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
-        /// </summary>
+        #region DataMembers
+        private Customer selectedCustomer;
+        private string customerID;
+        private string name;
+        private string address;
+        private string city;
+        private string state;
+        private string zipCode;
+        #endregion
 
+        #region Commands
         public RelayCommand GetCustomerCommand { get; private set; }
         public RelayCommand AddCustomerCommand { get; private set; }
         public RelayCommand ModifyCustomerCommand { get; private set; }
+        public RelayCommand DeleteCustomerCommand { get; private set; }
         public RelayCommand<MainWindow> CloseWindowCommand { get; private set; }
+        #endregion
 
         public MainViewModel()
         {
             GetCustomerCommand = new RelayCommand(GetCustomerMethod);
             AddCustomerCommand = new RelayCommand(AddCustomerMethod);
             ModifyCustomerCommand = new RelayCommand(ModifyCustomerMethod);
+            DeleteCustomerCommand = new RelayCommand(DeleteCustomerMethod);
             this.CloseWindowCommand = new RelayCommand<MainWindow>(this.CloseWindow);
         }
 
+        #region Properties
+        public Customer SelectedCustomer
+        {
+            get
+            {
+                return selectedCustomer;
+            }
+            set
+            {
+                selectedCustomer = value;
+                RaisePropertyChanged("SelectedCustomer");
+            }
+        }
+
+        public string CustomerIDBox
+        {
+            get
+            {
+                return customerID;
+            }
+            set
+            {
+                customerID = value;
+                RaisePropertyChanged("CustomerIDBox");
+            }
+        }
+
+        public string NameBox
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                RaisePropertyChanged("NameBox");
+            }
+        }
+
+        public string AddressBox
+        {
+            get
+            {
+                return address;
+            }
+            set
+            {
+                address = value;
+                RaisePropertyChanged("AddressBox");
+            }
+        }
+
+        public string CityBox
+        {
+            get
+            {
+                return city;
+            }
+            set
+            {
+                city = value;
+                RaisePropertyChanged("CityBox");
+            }
+        }
+
+        public string StateBox
+        {
+            get
+            {
+                return state;
+            }
+            set
+            {
+                state = value;
+                RaisePropertyChanged("StateBox");
+            }
+        }
+
+        public string ZipCodeBox
+        {
+            get
+            {
+                return zipCode;
+            }
+            set
+            {
+                zipCode = value;
+                RaisePropertyChanged("ZipCodeBox");
+            }
+        }
+        #endregion
+
+        #region GetCustomer
         private void GetCustomerMethod()
         {
+            if (Validator.isPresent(CustomerIDBox) &&
+                Validator.IsInt32(CustomerIDBox))
+            {
+                int customerID = Convert.ToInt32(CustomerIDBox);
+                this.GetCustomer(customerID);
+            }
 
         }
+
+        private void GetCustomer(int CustomerID)
+        {
+            try
+            {
+                selectedCustomer = (from customer in MMABooksEntity.mmaBooks.Customers
+                                        where customer.CustomerID == CustomerID
+                                        select customer).SingleOrDefault();
+                if (selectedCustomer == null)
+                {
+                    MessageBox.Show("No customer found with this ID. " +
+                    "Please try again.", "Customer Not Found");
+                    this.ClearControls();
+                }
+                else
+                {
+                    if (!MMABooksEntity.mmaBooks.Entry(
+                    selectedCustomer).Reference("State1").IsLoaded)
+                        MMABooksEntity.mmaBooks.Entry(
+                        selectedCustomer).Reference("State1").Load();
+                    this.DisplayCustomer();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
+            }
+        }
+
+        private void DisplayCustomer()
+        {
+            NameBox = selectedCustomer.Name;
+            AddressBox = selectedCustomer.Address;
+            CityBox = selectedCustomer.City;
+            StateBox = selectedCustomer.State1.StateName;
+            ZipCodeBox = selectedCustomer.ZipCode;
+        }
+
+        private void ClearControls()
+        {
+            NameBox = "";
+            AddressBox = "";
+            CityBox = "";
+            StateBox = "";
+            ZipCodeBox = "";
+        }
+        #endregion
 
         private void AddCustomerMethod()
         {
@@ -55,6 +216,41 @@ namespace Assignment4.ViewModel
         {
             ModifyView modView = new ModifyView();
             modView.Show();
+        }
+        
+        private void DeleteCustomerMethod()
+        {
+            try
+            {
+                // Mark the row for deletion.
+                // Update the database.
+                MMABooksEntity.mmaBooks.Customers.Remove(selectedCustomer);
+                MMABooksEntity.mmaBooks.SaveChanges();
+                Messenger.Default.Send(new NotificationMessage("Customer Removed!"));
+
+                CustomerIDBox = "";
+                this.ClearControls();
+            }
+            // Add concurrency error handling.
+            // Place the catch block before the one for a generic exception.
+            catch (DbUpdateConcurrencyException ex)
+            {
+                ex.Entries.Single().Reload();
+                if (MMABooksEntity.mmaBooks.Entry(selectedCustomer).State == EntityState.Detached)
+                {
+                    MessageBox.Show("Another user has deleted " + "that customer.", "Concurrency Error");
+                    CustomerIDBox = "";
+                }
+                else
+                {
+                    MessageBox.Show("Another user has updated " + "that customer.", "Concurrency Error");
+                    DisplayCustomer();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
+            }
         }
 
         private void CloseWindow(Window window)

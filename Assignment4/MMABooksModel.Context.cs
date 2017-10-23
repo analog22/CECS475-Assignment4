@@ -26,11 +26,7 @@ namespace Assignment4
         }
     
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<InvoiceLineItem> InvoiceLineItems { get; set; }
-        public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<State> States { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<OrderOption> OrderOptions { get; set; }
     }
 }

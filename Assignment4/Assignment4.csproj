@@ -96,12 +96,6 @@
     <Compile Include="Customer.cs">
       <DependentUpon>MMABooksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Invoice.cs">
-      <DependentUpon>MMABooksModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="InvoiceLineItem.cs">
-      <DependentUpon>MMABooksModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Messages\ViewModelMessage.cs" />
     <Compile Include="MMABooksModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -118,21 +112,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MMABooksModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Model\Customer.cs" />
-    <Compile Include="Model\State.cs" />
+    <Compile Include="Model\MMABooksEntity.cs" />
     <Compile Include="OrderOption.cs">
-      <DependentUpon>MMABooksModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Product.cs">
       <DependentUpon>MMABooksModel.tt</DependentUpon>
     </Compile>
     <Compile Include="State.cs">
       <DependentUpon>MMABooksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>MMABooksModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Validator.cs" />
+    <Compile Include="Model\Validator.cs" />
     <Compile Include="ViewModel\AddViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ModifyViewModel.cs" />

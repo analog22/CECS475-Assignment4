@@ -11,6 +11,18 @@
     <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
     <Property Name="ZipCode" Type="char" MaxLength="15" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\MATTHEW\DOCUMENTS\GITHUB\CECS475-ASSIGNMENT4\ASSIGNMENT4\MMABOOKS.MDF.dbo.OrderOptions' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="OrderOptions">
+    <Key>
+      <PropertyRef Name="SalesTaxRate" />
+      <PropertyRef Name="FirstBookShipCharge" />
+      <PropertyRef Name="AdditionalBookShipCharge" />
+    </Key>
+    <Property Name="SalesTaxRate" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="FirstBookShipCharge" Type="money" Nullable="false" />
+    <Property Name="AdditionalBookShipCharge" Type="money" Nullable="false" />
+  </EntityType>
   <EntityType Name="States">
     <Key>
       <PropertyRef Name="StateCode" />
@@ -33,6 +45,13 @@
   <EntityContainer Name="MMABooksModelStoreContainer">
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderOptions" EntityType="Self.OrderOptions" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [OrderOptions].[SalesTaxRate] AS [SalesTaxRate], 
+    [OrderOptions].[FirstBookShipCharge] AS [FirstBookShipCharge], 
+    [OrderOptions].[AdditionalBookShipCharge] AS [AdditionalBookShipCharge]
+    FROM [dbo].[OrderOptions] AS [OrderOptions]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_Customers_States" Association="Self.FK_Customers_States">
       <End Role="States" EntitySet="States" />
       <End Role="Customers" EntitySet="Customers" />
