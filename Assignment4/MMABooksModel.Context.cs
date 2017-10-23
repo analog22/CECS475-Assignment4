@@ -13,10 +13,10 @@ namespace Assignment4
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BooksEntities : DbContext
+    public partial class MMABooksEntities : DbContext
     {
-        public BooksEntities()
-            : base("name=BooksEntities")
+        public MMABooksEntities()
+            : base("name=MMABooksEntities")
         {
         }
     
@@ -25,7 +25,12 @@ namespace Assignment4
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Author> Authors { get; set; }
-        public virtual DbSet<Title> Titles { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<InvoiceLineItem> InvoiceLineItems { get; set; }
+        public virtual DbSet<Invoice> Invoices { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<OrderOption> OrderOptions { get; set; }
     }
 }

@@ -8,8 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("books.mdf")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("books_log.ldf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mmabooks.mdf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mmabooksmodel.context.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mmabooksmodel.tt")]
