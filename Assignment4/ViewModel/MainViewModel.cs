@@ -46,15 +46,100 @@ namespace Assignment4.ViewModel
 
         public MainViewModel()
         {
-            GetCustomerCommand = new RelayCommand(GetCustomerMethod);
-            AddCustomerCommand = new RelayCommand(AddCustomerMethod);
-            ModifyCustomerCommand = new RelayCommand(ModifyCustomerMethod);
-            DeleteCustomerCommand = new RelayCommand(DeleteCustomerMethod);
             this.CloseWindowCommand = new RelayCommand<MainWindow>(this.CloseWindow);
+
+            //Message receivers to accept messages from EditViewModel and AddViewModel
+            //The sender also sends a token as the second parameter and only receivers with the same token will accept it.
+            Messenger.Default.Register<Customer>(this, "add", (customer) =>
+            {
+                try
+                {
+                    // Code a query to retrieve the selected customer
+                    // and store the Customer object in the class variable.
+                    selectedCustomer = customer;
+                    this.DisplayCustomer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+            });
+
+            Messenger.Default.Register<Customer>(this, "edit", (customer) =>
+            {
+                try
+                {
+                    // Code a query to retrieve the selected customer
+                    // and store the Customer object in the class variable.
+                    selectedCustomer = customer;
+                    this.DisplayCustomer();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+            });
+
+            GetCustomerCommand = new RelayCommand(() =>
+            {
+                if (Validator.isPresent(CustomerIDBox) &&
+                Validator.IsInt32(CustomerIDBox))
+                {
+                    int customerID = Convert.ToInt32(CustomerIDBox);
+                    this.GetCustomer(customerID);
+                }
+            });
+
+            AddCustomerCommand = new RelayCommand(() =>
+            {
+                AddView addView = new AddView();
+                addView.Show();
+            });
+
+            ModifyCustomerCommand = new RelayCommand(() =>
+            {
+                ModifyView modView = new ModifyView();
+                modView.Show();
+            });
+
+            DeleteCustomerCommand = new RelayCommand(() =>
+            {
+                try
+                {
+                    // Mark the row for deletion.
+                    // Update the database.
+                    MMABooksEntity.mmaBooks.Customers.Remove(selectedCustomer);
+                    MMABooksEntity.mmaBooks.SaveChanges();
+                    Messenger.Default.Send(new NotificationMessage("Customer Removed!"));
+
+                    CustomerIDBox = "";
+                    this.ClearControls();
+                }
+                // Add concurrency error handling.
+                // Place the catch block before the one for a generic exception.
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    ex.Entries.Single().Reload();
+                    if (MMABooksEntity.mmaBooks.Entry(selectedCustomer).State == EntityState.Detached)
+                    {
+                        MessageBox.Show("Another user has deleted " + "that customer.", "Concurrency Error");
+                        CustomerIDBox = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Another user has updated " + "that customer.", "Concurrency Error");
+                        DisplayCustomer();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().ToString());
+                }
+            });
         }
 
         #region Properties
-        public Customer SelectedCustomer
+    public Customer SelectedCustomer
         {
             get
             {
@@ -147,17 +232,6 @@ namespace Assignment4.ViewModel
         #endregion
 
         #region GetCustomer
-        private void GetCustomerMethod()
-        {
-            if (Validator.isPresent(CustomerIDBox) &&
-                Validator.IsInt32(CustomerIDBox))
-            {
-                int customerID = Convert.ToInt32(CustomerIDBox);
-                this.GetCustomer(customerID);
-            }
-
-        }
-
         private void GetCustomer(int CustomerID)
         {
             try
@@ -205,53 +279,6 @@ namespace Assignment4.ViewModel
             ZipCodeBox = "";
         }
         #endregion
-
-        private void AddCustomerMethod()
-        {
-            AddView addView = new AddView();
-            addView.Show();
-        }
-
-        private void ModifyCustomerMethod()
-        {
-            ModifyView modView = new ModifyView();
-            modView.Show();
-        }
-        
-        private void DeleteCustomerMethod()
-        {
-            try
-            {
-                // Mark the row for deletion.
-                // Update the database.
-                MMABooksEntity.mmaBooks.Customers.Remove(selectedCustomer);
-                MMABooksEntity.mmaBooks.SaveChanges();
-                Messenger.Default.Send(new NotificationMessage("Customer Removed!"));
-
-                CustomerIDBox = "";
-                this.ClearControls();
-            }
-            // Add concurrency error handling.
-            // Place the catch block before the one for a generic exception.
-            catch (DbUpdateConcurrencyException ex)
-            {
-                ex.Entries.Single().Reload();
-                if (MMABooksEntity.mmaBooks.Entry(selectedCustomer).State == EntityState.Detached)
-                {
-                    MessageBox.Show("Another user has deleted " + "that customer.", "Concurrency Error");
-                    CustomerIDBox = "";
-                }
-                else
-                {
-                    MessageBox.Show("Another user has updated " + "that customer.", "Concurrency Error");
-                    DisplayCustomer();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.GetType().ToString());
-            }
-        }
 
         private void CloseWindow(Window window)
         {

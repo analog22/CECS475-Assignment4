@@ -96,7 +96,6 @@
     <Compile Include="Customer.cs">
       <DependentUpon>MMABooksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Messages\ViewModelMessage.cs" />
     <Compile Include="MMABooksModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
