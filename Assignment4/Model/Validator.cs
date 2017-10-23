@@ -26,7 +26,7 @@ namespace Assignment4.Model
             }
         }
 
-        public static bool isPresent(string textBox)
+        public static bool IsPresent(string textBox)
         {
             if (textBox == null)
             {
@@ -38,7 +38,7 @@ namespace Assignment4.Model
             return true;
         }
 
-        public static bool isDecimal(string textBox)
+        public static bool IsDecimal(string textBox)
         {
             decimal number = 0m;
             if (Decimal.TryParse(textBox, out number))

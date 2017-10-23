@@ -46,8 +46,6 @@ namespace Assignment4.ViewModel
 
         public MainViewModel()
         {
-            this.CloseWindowCommand = new RelayCommand<MainWindow>(this.CloseWindow);
-
             //Message receivers to accept messages from EditViewModel and AddViewModel
             //The sender also sends a token as the second parameter and only receivers with the same token will accept it.
             Messenger.Default.Register<Customer>(this, "add", (customer) =>
@@ -82,7 +80,7 @@ namespace Assignment4.ViewModel
 
             GetCustomerCommand = new RelayCommand(() =>
             {
-                if (Validator.isPresent(CustomerIDBox) &&
+                if (Validator.IsPresent(CustomerIDBox) &&
                 Validator.IsInt32(CustomerIDBox))
                 {
                     int customerID = Convert.ToInt32(CustomerIDBox);
@@ -136,10 +134,18 @@ namespace Assignment4.ViewModel
                     MessageBox.Show(ex.Message, ex.GetType().ToString());
                 }
             });
+
+            CloseWindowCommand = new RelayCommand<MainWindow>((window) =>
+            {
+                if (window != null)
+                {
+                    window.Close();
+                }
+            });
         }
 
         #region Properties
-    public Customer SelectedCustomer
+        public Customer SelectedCustomer
         {
             get
             {
@@ -279,13 +285,5 @@ namespace Assignment4.ViewModel
             ZipCodeBox = "";
         }
         #endregion
-
-        private void CloseWindow(Window window)
-        {
-            if (window != null)
-            {
-                window.Close();
-            }
-        }
     }
 }

@@ -13,13 +13,13 @@
         <Label Content="State" HorizontalAlignment="Left" Margin="38,142,0,0" VerticalAlignment="Top"/>
         <Label Content="Zip Code" HorizontalAlignment="Left" Margin="372,142,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="AddNameBox" HorizontalAlignment="Left" Height="26" Margin="96,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
-                 Text="{Binding NameTextBox}"/>
+                 Text="{Binding NameBox}"/>
         <TextBox x:Name="AddAddressBox" HorizontalAlignment="Left" Height="26" Margin="96,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
-                 Text="{Binding AddressTextBox}"/>
+                 Text="{Binding AddressBox}"/>
         <TextBox x:Name="AddCityBox" HorizontalAlignment="Left" Height="26" Margin="96,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
-                 Text="{Binding CityTextBox}"/>
+                 Text="{Binding CityBox}"/>
         <TextBox x:Name="AddZipCodeBox" HorizontalAlignment="Left" Height="26" Margin="435,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 Text="{Binding ZipTextBox}"/>
+                 Text="{Binding ZipBox}"/>
         <ComboBox x:Name="StatesComboBox" HorizontalAlignment="Left" Margin="96,142,0,0" VerticalAlignment="Top" Width="271" Height="26"
                   SelectedItem="{Binding SelectedItem}" DisplayMemberPath="StateName"/>
         <Button x:Name="AcceptButton" Content="Accept" HorizontalAlignment="Left" Margin="96,194,0,0" VerticalAlignment="Top" Width="75"
