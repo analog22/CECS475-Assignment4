@@ -21,7 +21,7 @@
         <TextBox x:Name="AddZipCodeBox" HorizontalAlignment="Left" Height="26" Margin="435,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  Text="{Binding ZipBox}"/>
         <ComboBox x:Name="StatesComboBox" HorizontalAlignment="Left" Margin="96,142,0,0" VerticalAlignment="Top" Width="271" Height="26"
-                  SelectedItem="{Binding SelectedItem}" DisplayMemberPath="StateName"/>
+                  ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}" DisplayMemberPath="StateName"/>
         <Button x:Name="AcceptButton" Content="Accept" HorizontalAlignment="Left" Margin="96,194,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding AcceptCommand}"/>
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="480,194,0,0" VerticalAlignment="Top" Width="75"

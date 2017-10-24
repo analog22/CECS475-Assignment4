@@ -18,7 +18,8 @@ namespace Assignment4.ViewModel
         private string name;
         private string address;
         private string city;
-        private ObservableCollection<State> States;
+        private State selectedState;
+        private ObservableCollection<State> states;
         private string zipCode;
         private Customer customer;
         #endregion
@@ -35,8 +36,8 @@ namespace Assignment4.ViewModel
                 // Code a query to retrieve the required information from
                 // the States table, and sort the results by state name.
                 // Bind the State combo box to the query results.
-                var states = (from state in MMABooksEntity.mmaBooks.States orderby state.StateName select state).ToList();
-                States = new ObservableCollection<State>(states);
+                var statesQuery = (from state in MMABooksEntity.mmaBooks.States orderby state.StateName select state).ToList();
+                states = new ObservableCollection<State>(statesQuery);
             }
             catch (Exception ex)
             {
@@ -50,9 +51,9 @@ namespace Assignment4.ViewModel
                 {
                     //create a new customer, populate, and add to db
                     customer = new Customer();
-                    //this.PutCustomerData(customer);
+                    this.PutCustomerData(customer);
                     customer = MMABooksEntity.mmaBooks.Customers.Add(customer);
-                    MMABooksEntity.mmaBooks.SaveChanges();
+                    //MMABooksEntity.mmaBooks.SaveChanges();
 
                     window.Close();
 
@@ -69,6 +70,15 @@ namespace Assignment4.ViewModel
                     window.Close();
                 }
             });
+        }
+
+        private void PutCustomerData(Customer customer)
+        {
+            customer.Name = NameBox;
+            customer.Address = AddressBox;
+            customer.City = CityBox;
+            customer.State1 = SelectedState;
+            customer.ZipCode = ZipCodeBox;
         }
 
         #region Properties
@@ -111,6 +121,27 @@ namespace Assignment4.ViewModel
             }
         }
 
+        public State SelectedState
+        {
+            get
+            {
+                return selectedState;
+            }
+            set
+            {
+                selectedState = value;
+                RaisePropertyChanged("SelectedState");
+            }
+        }
+
+        public ObservableCollection<State> States
+        {
+            get
+            {
+                return states;
+            }
+        }
+
         public string ZipCodeBox
         {
             get
@@ -127,7 +158,18 @@ namespace Assignment4.ViewModel
 
         public bool IsValidData()
         {
-            return true;
+            bool isPresent = Validator.IsPresent(NameBox) 
+                                && Validator.IsPresent(AddressBox) 
+                                && Validator.IsPresent(CityBox) 
+                                && Validator.IsPresent(ZipCodeBox);
+            if (isPresent && Validator.IsInt32(ZipCodeBox))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
