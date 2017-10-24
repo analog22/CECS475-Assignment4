@@ -12,17 +12,18 @@
         <Label Content="City" HorizontalAlignment="Left" Margin="38,102,0,0" VerticalAlignment="Top"/>
         <Label Content="State" HorizontalAlignment="Left" Margin="38,142,0,0" VerticalAlignment="Top"/>
         <Label Content="Zip Code" HorizontalAlignment="Left" Margin="372,142,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ModifyNameBox" HorizontalAlignment="Left" Height="26" Margin="96,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
-                 Text="{Binding NameTextBox}"/>
-        <TextBox x:Name="ModifyAddressBox" HorizontalAlignment="Left" Height="26" Margin="96,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
-                 Text="{Binding AddressTextBox}"/>
-        <TextBox x:Name="ModifyCityBox" HorizontalAlignment="Left" Height="26" Margin="96,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
-                 Text="{Binding CityTextBox}"/>
-        <TextBox x:Name="ModifyZipCodeBox" HorizontalAlignment="Left" Height="26" Margin="435,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                 Text="{Binding ZipTextBox}"/>
-        <ComboBox x:Name="StateComboBox" HorizontalAlignment="Left" Margin="96,142,0,0" VerticalAlignment="Top" Width="271" Height="26"/>
-        <Button x:Name="AcceptButton" Content="Save" HorizontalAlignment="Left" Margin="96,194,0,0" VerticalAlignment="Top" Width="75"
-                Command="{Binding SaveCommand}"/>
+        <TextBox x:Name="AddNameBox" HorizontalAlignment="Left" Height="26" Margin="96,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
+                 Text="{Binding NameBox}"/>
+        <TextBox x:Name="AddAddressBox" HorizontalAlignment="Left" Height="26" Margin="96,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
+                 Text="{Binding AddressBox}"/>
+        <TextBox x:Name="AddCityBox" HorizontalAlignment="Left" Height="26" Margin="96,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="459"
+                 Text="{Binding CityBox}"/>
+        <TextBox x:Name="AddZipCodeBox" HorizontalAlignment="Left" Height="26" Margin="435,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 Text="{Binding ZipCodeBox}"/>
+        <ComboBox x:Name="StatesComboBox" HorizontalAlignment="Left" Margin="96,142,0,0" VerticalAlignment="Top" Width="271" Height="26"
+                  ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}" DisplayMemberPath="StateName"/>
+        <Button x:Name="AcceptButton" Content="Accept" HorizontalAlignment="Left" Margin="96,194,0,0" VerticalAlignment="Top" Width="75"
+                Command="{Binding AcceptCommand}"/>
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="480,194,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding CloseWindowCommand, Mode=OneWay}"
                 CommandParameter="{Binding ElementName=ModifyCustomerView}"/>

@@ -55,6 +55,7 @@ namespace Assignment4.ViewModel
                     // Code a query to retrieve the selected customer
                     // and store the Customer object in the class variable.
                     selectedCustomer = customer;
+                    CustomerIDBox = Convert.ToString(customer.CustomerID);
                     this.DisplayCustomer();
                 }
                 catch (Exception ex)
@@ -63,7 +64,7 @@ namespace Assignment4.ViewModel
                 }
             });
 
-            Messenger.Default.Register<Customer>(this, "edit", (customer) =>
+            Messenger.Default.Register<Customer>(this, "modify", (customer) =>
             {
                 try
                 {
@@ -98,6 +99,7 @@ namespace Assignment4.ViewModel
             {
                 ModifyView modView = new ModifyView();
                 modView.Show();
+                Messenger.Default.Send(SelectedCustomer, "mod");
             });
 
             DeleteCustomerCommand = new RelayCommand(() =>

@@ -53,9 +53,12 @@ namespace Assignment4.ViewModel
                     customer = new Customer();
                     this.PutCustomerData(customer);
                     customer = MMABooksEntity.mmaBooks.Customers.Add(customer);
-                    //MMABooksEntity.mmaBooks.SaveChanges();
+                    MMABooksEntity.mmaBooks.SaveChanges();
 
-                    window.Close();
+                    if (window != null)
+                    {
+                        window.Close();
+                    }
 
                     //notify user and send the customer back to MainViewModel for display
                     Messenger.Default.Send(new NotificationMessage("Customer Added!"));
@@ -71,16 +74,7 @@ namespace Assignment4.ViewModel
                 }
             });
         }
-
-        private void PutCustomerData(Customer customer)
-        {
-            customer.Name = NameBox;
-            customer.Address = AddressBox;
-            customer.City = CityBox;
-            customer.State1 = SelectedState;
-            customer.ZipCode = ZipCodeBox;
-        }
-
+        
         #region Properties
         public string NameBox
         {
@@ -156,13 +150,29 @@ namespace Assignment4.ViewModel
         }
         #endregion
 
+        private void PutCustomerData(Customer customer)
+        {
+            customer.Name = NameBox;
+            customer.Address = AddressBox;
+            customer.City = CityBox;
+            customer.State = SelectedState.StateName;
+            customer.ZipCode = ZipCodeBox;
+            customer.State1 = SelectedState;
+        }
+
         public bool IsValidData()
         {
             bool isPresent = Validator.IsPresent(NameBox) 
                                 && Validator.IsPresent(AddressBox) 
                                 && Validator.IsPresent(CityBox) 
+                                && Validator.IsPresent(SelectedState.StateName)
                                 && Validator.IsPresent(ZipCodeBox);
-            if (isPresent && Validator.IsInt32(ZipCodeBox))
+            bool isLength = Validator.IsWithinRange(NameBox, 2, 25)
+                                && Validator.IsWithinRange(AddressBox, 2, 25)
+                                && Validator.IsWithinRange(CityBox, 2, 25)
+                                && Validator.IsWithinRange(ZipCodeBox, 5, 5);
+            bool isZipCode = Validator.IsInt32(ZipCodeBox);
+            if (isPresent && isLength && isZipCode)
             {
                 return true;
             }
