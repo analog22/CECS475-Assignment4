@@ -17,13 +17,13 @@ namespace Assignment4.ViewModel
     public class ModifyViewModel : ViewModelBase
     {
         #region DataMembers
+        private Customer selectedCustomer;
         private string name;
         private string address;
         private string city;
         private State selectedState;
         private ObservableCollection<State> states;
         private string zipCode;
-        private Customer customer;
         #endregion
 
         #region Commands
@@ -48,6 +48,7 @@ namespace Assignment4.ViewModel
 
             Messenger.Default.Register<Customer>(this, "mod", (customer) =>
             {
+                SelectedCustomer = customer;
                 NameBox = customer.Name;
                 AddressBox = customer.Address;
                 CityBox = customer.City;
@@ -61,7 +62,7 @@ namespace Assignment4.ViewModel
                 if (IsValidData())
                 {
                     //update the customer 
-                    PutCustomerData(customer);
+                    PutCustomerData(SelectedCustomer);
                     try
                     {
                         // Update the database.
@@ -74,14 +75,14 @@ namespace Assignment4.ViewModel
 
                         //Notify user and send customer back to MainViewModel for display
                         Messenger.Default.Send(new NotificationMessage("Changes Saved!"));
-                        Messenger.Default.Send(customer, "edit");
+                        Messenger.Default.Send(SelectedCustomer, "modify");
                     }
                     // Add concurrency error handling.
                     // Place the catch block before the one for a generic exception.
                     catch (DbUpdateConcurrencyException ex)
                     {
                         ex.Entries.Single().Reload();
-                        if (MMABooksEntity.mmaBooks.Entry(customer).State == EntityState.Detached)
+                        if (MMABooksEntity.mmaBooks.Entry(SelectedCustomer).State == EntityState.Detached)
                         {
                             MessageBox.Show("Another user has deleted " + "that customer.", "Concurrency Error");
                         }
@@ -107,6 +108,19 @@ namespace Assignment4.ViewModel
         }
 
         #region Properties
+        public Customer SelectedCustomer
+        {
+            get
+            {
+                return selectedCustomer;
+            }
+            set
+            {
+                selectedCustomer = value;
+                RaisePropertyChanged("SelectedCustomer");
+            }
+        }
+
         public string NameBox
         {
             get
@@ -181,6 +195,7 @@ namespace Assignment4.ViewModel
         }
         #endregion
 
+        #region Methods
         private void PutCustomerData(Customer customer)
         {
             customer.Name = NameBox;
@@ -189,6 +204,7 @@ namespace Assignment4.ViewModel
             customer.State = SelectedState.StateName;
             customer.ZipCode = ZipCodeBox;
             customer.State1 = SelectedState;
+            Messenger.Default.Send(customer, "modData");
         }
 
         public bool IsValidData()
@@ -212,5 +228,6 @@ namespace Assignment4.ViewModel
                 return false;
             }
         }
+        #endregion
     }
 }

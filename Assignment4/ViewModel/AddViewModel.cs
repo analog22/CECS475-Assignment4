@@ -150,6 +150,7 @@ namespace Assignment4.ViewModel
         }
         #endregion
 
+        #region Methods
         private void PutCustomerData(Customer customer)
         {
             customer.Name = NameBox;
@@ -181,5 +182,6 @@ namespace Assignment4.ViewModel
                 return false;
             }
         }
+        #endregion
     }
 }

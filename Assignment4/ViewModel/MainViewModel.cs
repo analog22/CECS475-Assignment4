@@ -79,6 +79,15 @@ namespace Assignment4.ViewModel
                 }
             });
 
+            Messenger.Default.Register<Customer>(this, "modData", (customer) =>
+            {
+                SelectedCustomer.Name = customer.Name;
+                SelectedCustomer.Address = customer.Address;
+                SelectedCustomer.City = customer.City;
+                SelectedCustomer.State = customer.State;
+                SelectedCustomer.ZipCode = customer.ZipCode;
+            });
+
             GetCustomerCommand = new RelayCommand(() =>
             {
                 if (Validator.IsPresent(CustomerIDBox) &&
