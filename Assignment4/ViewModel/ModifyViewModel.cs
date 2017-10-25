@@ -198,13 +198,13 @@ namespace Assignment4.ViewModel
         #region Methods
         private void PutCustomerData(Customer customer)
         {
-            customer.Name = NameBox;
-            customer.Address = AddressBox;
-            customer.City = CityBox;
-            customer.State = SelectedState.StateName;
-            customer.ZipCode = ZipCodeBox;
-            customer.State1 = SelectedState;
-            Messenger.Default.Send(customer, "modData");
+            SelectedCustomer.Name = NameBox;
+            SelectedCustomer.Address = AddressBox;
+            SelectedCustomer.City = CityBox;
+            SelectedCustomer.State = SelectedState.StateName;
+            SelectedCustomer.ZipCode = ZipCodeBox;
+            SelectedCustomer.State1 = SelectedState;
+            Messenger.Default.Send(SelectedCustomer, "modData");
         }
 
         public bool IsValidData()
@@ -215,8 +215,8 @@ namespace Assignment4.ViewModel
                                 && Validator.IsPresent(SelectedState.StateName)
                                 && Validator.IsPresent(ZipCodeBox);
             bool isLength = Validator.IsWithinRange(NameBox, 2, 25)
-                                && Validator.IsWithinRange(AddressBox, 2, 25)
-                                && Validator.IsWithinRange(CityBox, 2, 25)
+                                && Validator.IsWithinRange(AddressBox, 2, 50)
+                                && Validator.IsWithinRange(CityBox, 2, 50)
                                 && Validator.IsWithinRange(ZipCodeBox, 5, 5);
             bool isZipCode = Validator.IsInt32(ZipCodeBox);
             if (isPresent && isLength && isZipCode)

@@ -172,8 +172,8 @@ namespace Assignment4.ViewModel
                                 && Validator.IsPresent(SelectedState.StateName)
                                 && Validator.IsPresent(ZipCodeBox);
             bool isLength = Validator.IsWithinRange(NameBox, 2, 25)
-                                && Validator.IsWithinRange(AddressBox, 2, 25)
-                                && Validator.IsWithinRange(CityBox, 2, 25)
+                                && Validator.IsWithinRange(AddressBox, 2, 50)
+                                && Validator.IsWithinRange(CityBox, 2, 50)
                                 && Validator.IsWithinRange(ZipCodeBox, 5, 5);
             bool isZipCode = Validator.IsInt32(ZipCodeBox);
             if (isPresent && isLength && isZipCode)
