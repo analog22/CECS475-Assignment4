@@ -23,7 +23,8 @@
         <ComboBox x:Name="StatesComboBox" HorizontalAlignment="Left" Margin="96,142,0,0" VerticalAlignment="Top" Width="271" Height="26"
                   ItemsSource="{Binding States}" SelectedItem="{Binding SelectedState}" DisplayMemberPath="StateName"/>
         <Button x:Name="AcceptButton" Content="Accept" HorizontalAlignment="Left" Margin="96,194,0,0" VerticalAlignment="Top" Width="75"
-                Command="{Binding AcceptCommand}"/>
+                Command="{Binding AcceptCommand, Mode=OneWay}"
+                CommandParameter="{Binding ElementName=AddCustomerView}"/>
         <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="480,194,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding CloseWindowCommand, Mode=OneWay}"
                 CommandParameter="{Binding ElementName=AddCustomerView}"/>

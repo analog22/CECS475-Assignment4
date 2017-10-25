@@ -61,7 +61,7 @@ namespace Assignment4.ViewModel
                 //Check customer information before updating
                 if (IsValidData())
                 {
-                    //update the customer 
+                    //update the customer
                     PutCustomerData(SelectedCustomer);
                     try
                     {

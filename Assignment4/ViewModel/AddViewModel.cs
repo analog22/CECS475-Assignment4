@@ -54,7 +54,10 @@ namespace Assignment4.ViewModel
                     this.PutCustomerData(customer);
                     customer = MMABooksEntity.mmaBooks.Customers.Add(customer);
                     MMABooksEntity.mmaBooks.SaveChanges();
-
+                    if (window == null)
+                    {
+                        Console.WriteLine("wtf");
+                    }
                     if (window != null)
                     {
                         window.Close();
