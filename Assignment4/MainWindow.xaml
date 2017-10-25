@@ -35,9 +35,11 @@
         <Button x:Name="AddButton" Content="Add" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding AddCustomerCommand}"/>
         <Button x:Name="ModifyButton" Content="Modify" HorizontalAlignment="Left" Margin="140,250,0,0" VerticalAlignment="Top" Width="75"
-                Command="{Binding ModifyCustomerCommand}"/>
+                Command="{Binding ModifyCustomerCommand}"
+                IsEnabled="{Binding ButtonIsEnabled}"/>
         <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="230,250,0,0" VerticalAlignment="Top" Width="75"
-                Command="{Binding DeleteCustomerCommand}"/>
+                Command="{Binding DeleteCustomerCommand}"
+                IsEnabled="{Binding ButtonIsEnabled}"/>
         <Button x:Name="ExitButton" Content="Exit" HorizontalAlignment="Left" Margin="400,250,0,0" VerticalAlignment="Top" Width="75"
                 Command="{Binding CloseWindowCommand, Mode=OneWay}"
                 CommandParameter="{Binding ElementName=MainView}"/>

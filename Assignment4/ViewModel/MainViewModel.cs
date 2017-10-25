@@ -34,6 +34,7 @@ namespace Assignment4.ViewModel
         private string city;
         private string state;
         private string zipCode;
+        private bool buttonIsEnabled;
         #endregion
 
         #region Commands
@@ -46,6 +47,7 @@ namespace Assignment4.ViewModel
 
         public MainViewModel()
         {
+            ButtonIsEnabled = false;
             //Message receivers to accept messages from EditViewModel and AddViewModel
             //The sender also sends a token as the second parameter and only receivers with the same token will accept it.
             Messenger.Default.Register<Customer>(this, "add", (customer) =>
@@ -95,7 +97,9 @@ namespace Assignment4.ViewModel
                 {
                     int customerID = Convert.ToInt32(CustomerIDBox);
                     this.GetCustomer(customerID);
+
                 }
+                ButtonIsEnabled = true;
             });
 
             AddCustomerCommand = new RelayCommand(() =>
@@ -144,6 +148,8 @@ namespace Assignment4.ViewModel
                 {
                     MessageBox.Show(ex.Message, ex.GetType().ToString());
                 }
+
+                ButtonIsEnabled = false;
             });
 
             CloseWindowCommand = new RelayCommand<MainWindow>((window) =>
@@ -244,6 +250,19 @@ namespace Assignment4.ViewModel
             {
                 zipCode = value;
                 RaisePropertyChanged("ZipCodeBox");
+            }
+        }
+
+        public bool ButtonIsEnabled
+        {
+            get
+            {
+                return buttonIsEnabled;
+            }
+            set
+            {
+                buttonIsEnabled = value;
+                RaisePropertyChanged("ButtonIsEnabled");
             }
         }
         #endregion
