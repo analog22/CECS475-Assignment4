@@ -66,6 +66,7 @@ namespace Assignment4.ViewModel
                     //notify user and send the customer back to MainViewModel for display
                     Messenger.Default.Send(new NotificationMessage("Customer Added!"));
                     Messenger.Default.Send(customer, "add");
+                    MessageBox.Show("Customer Added!");
                 }
             });
 
@@ -173,8 +174,8 @@ namespace Assignment4.ViewModel
                                 && Validator.IsPresent(ZipCodeBox);
             bool isLength = Validator.IsWithinRange(NameBox, 2, 25)
                                 && Validator.IsWithinRange(AddressBox, 2, 50)
-                                && Validator.IsWithinRange(CityBox, 2, 50)
-                                && Validator.IsWithinRange(ZipCodeBox, 5, 5);
+                                && Validator.IsWithinRange(CityBox, 2, 20)
+                                && Validator.IsWithinRange(ZipCodeBox, 5, 15);
             bool isZipCode = Validator.IsInt32(ZipCodeBox);
             if (isPresent && isLength && isZipCode)
             {

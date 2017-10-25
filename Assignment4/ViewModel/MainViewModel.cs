@@ -110,6 +110,7 @@ namespace Assignment4.ViewModel
             {
                 AddView addView = new AddView();
                 addView.Show();
+                ButtonIsEnabled = true;
             });
 
             /// <summary>
@@ -120,6 +121,7 @@ namespace Assignment4.ViewModel
                 ModifyView modView = new ModifyView();
                 modView.Show();
                 Messenger.Default.Send(SelectedCustomer, "mod");
+                GetCustomer(SelectedCustomer.CustomerID);
             });
 
             /// <summary>
@@ -285,10 +287,10 @@ namespace Assignment4.ViewModel
         {
             try
             {
-                selectedCustomer = (from customer in MMABooksEntity.mmaBooks.Customers
+                SelectedCustomer = (from customer in MMABooksEntity.mmaBooks.Customers
                                         where customer.CustomerID == CustomerID
                                         select customer).SingleOrDefault();
-                if (selectedCustomer == null)
+                if (SelectedCustomer == null)
                 {
                     MessageBox.Show("No customer found with this ID. " +
                     "Please try again.", "Customer Not Found");
@@ -298,9 +300,9 @@ namespace Assignment4.ViewModel
                 else
                 {
                     if (!MMABooksEntity.mmaBooks.Entry(
-                    selectedCustomer).Reference("State1").IsLoaded)
+                    SelectedCustomer).Reference("State1").IsLoaded)
                         MMABooksEntity.mmaBooks.Entry(
-                        selectedCustomer).Reference("State1").Load();
+                        SelectedCustomer).Reference("State1").Load();
                     this.DisplayCustomer();
                     ButtonIsEnabled = true;
                 }
@@ -314,11 +316,11 @@ namespace Assignment4.ViewModel
 
         private void DisplayCustomer()
         {
-            NameBox = selectedCustomer.Name;
-            AddressBox = selectedCustomer.Address;
-            CityBox = selectedCustomer.City;
-            StateBox = selectedCustomer.State1.StateName;
-            ZipCodeBox = selectedCustomer.ZipCode;
+            NameBox = SelectedCustomer.Name;
+            AddressBox = SelectedCustomer.Address;
+            CityBox = SelectedCustomer.City;
+            StateBox = SelectedCustomer.State1.StateName;
+            ZipCodeBox = SelectedCustomer.ZipCode;
         }
 
         private void ClearControls()

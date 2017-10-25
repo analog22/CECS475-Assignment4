@@ -21,6 +21,7 @@ namespace Assignment4.ViewModel
         private string name;
         private string address;
         private string city;
+        private string stateCode;
         private State selectedState;
         private ObservableCollection<State> states;
         private string zipCode;
@@ -53,6 +54,7 @@ namespace Assignment4.ViewModel
                 AddressBox = customer.Address;
                 CityBox = customer.City;
                 SelectedState = customer.State1;
+                StateCode = customer.State1.StateCode;
                 ZipCodeBox = customer.ZipCode;
             });
 
@@ -76,6 +78,7 @@ namespace Assignment4.ViewModel
                         //Notify user and send customer back to MainViewModel for display
                         Messenger.Default.Send(new NotificationMessage("Changes Saved!"));
                         Messenger.Default.Send(SelectedCustomer, "modify");
+                        MessageBox.Show("Changes Saved!");
                     }
                     // Add concurrency error handling.
                     // Place the catch block before the one for a generic exception.
@@ -85,16 +88,26 @@ namespace Assignment4.ViewModel
                         if (MMABooksEntity.mmaBooks.Entry(SelectedCustomer).State == EntityState.Detached)
                         {
                             MessageBox.Show("Another user has deleted " + "that customer.", "Concurrency Error");
+
+                            this.ClearControls();
+                            if (window != null)
+                            {
+                                window.Close();
+                            }
                         }
                         else
                         {
                             MessageBox.Show("Another user has updated " + "that customer.", "Concurrency Error");
+                            if (window != null)
+                            {
+                                window.Close();
+                            }
                         }
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, ex.GetType().ToString());
-                    }
+;                    }
                 }
             });
 
@@ -160,6 +173,19 @@ namespace Assignment4.ViewModel
             }
         }
 
+        public string StateCode
+        {
+            get
+            {
+                return stateCode;
+            }
+            set
+            {
+                stateCode = value;
+                RaisePropertyChanged("StateCode");
+            }
+        }
+
         public State SelectedState
         {
             get
@@ -201,10 +227,19 @@ namespace Assignment4.ViewModel
             SelectedCustomer.Name = NameBox;
             SelectedCustomer.Address = AddressBox;
             SelectedCustomer.City = CityBox;
-            SelectedCustomer.State = SelectedState.StateName;
+            SelectedCustomer.State = StateCode;
             SelectedCustomer.ZipCode = ZipCodeBox;
             SelectedCustomer.State1 = SelectedState;
             Messenger.Default.Send(SelectedCustomer, "modData");
+        }
+
+        private void ClearControls()
+        {
+            NameBox = "";
+            AddressBox = "";
+            CityBox = "";
+            StateBox = "";
+            ZipCodeBox = "";
         }
 
         public bool IsValidData()
@@ -212,12 +247,12 @@ namespace Assignment4.ViewModel
             bool isPresent = Validator.IsPresent(NameBox)
                                 && Validator.IsPresent(AddressBox)
                                 && Validator.IsPresent(CityBox)
-                                && Validator.IsPresent(SelectedState.StateName)
+                                && Validator.IsPresent(StateCode)
                                 && Validator.IsPresent(ZipCodeBox);
             bool isLength = Validator.IsWithinRange(NameBox, 2, 25)
                                 && Validator.IsWithinRange(AddressBox, 2, 50)
-                                && Validator.IsWithinRange(CityBox, 2, 50)
-                                && Validator.IsWithinRange(ZipCodeBox, 5, 5);
+                                && Validator.IsWithinRange(CityBox, 2, 20)
+                                && Validator.IsWithinRange(ZipCodeBox, 5, 15);
             bool isZipCode = Validator.IsInt32(ZipCodeBox);
             if (isPresent && isLength && isZipCode)
             {
