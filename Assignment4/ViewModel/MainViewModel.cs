@@ -90,6 +90,9 @@ namespace Assignment4.ViewModel
                 SelectedCustomer.ZipCode = customer.ZipCode;
             });
 
+            /// <summary>
+            /// Get the customer using the customer ID.
+            /// </summary>
             GetCustomerCommand = new RelayCommand(() =>
             {
                 if (Validator.IsPresent(CustomerIDBox) &&
@@ -97,17 +100,21 @@ namespace Assignment4.ViewModel
                 {
                     int customerID = Convert.ToInt32(CustomerIDBox);
                     this.GetCustomer(customerID);
-
                 }
-                ButtonIsEnabled = true;
             });
 
+            /// <summary>
+            /// Open the add customer view.
+            /// </summary>
             AddCustomerCommand = new RelayCommand(() =>
             {
                 AddView addView = new AddView();
                 addView.Show();
             });
 
+            /// <summary>
+            /// Open the modify customer view.
+            /// </summary>
             ModifyCustomerCommand = new RelayCommand(() =>
             {
                 ModifyView modView = new ModifyView();
@@ -115,6 +122,9 @@ namespace Assignment4.ViewModel
                 Messenger.Default.Send(SelectedCustomer, "mod");
             });
 
+            /// <summary>
+            /// Delete a customer from the database.
+            /// </summary>
             DeleteCustomerCommand = new RelayCommand(() =>
             {
                 try
@@ -152,6 +162,9 @@ namespace Assignment4.ViewModel
                 ButtonIsEnabled = false;
             });
 
+            /// <summary>
+            /// Close the current window.
+            /// </summary>
             CloseWindowCommand = new RelayCommand<MainWindow>((window) =>
             {
                 if (window != null)
@@ -280,6 +293,7 @@ namespace Assignment4.ViewModel
                     MessageBox.Show("No customer found with this ID. " +
                     "Please try again.", "Customer Not Found");
                     this.ClearControls();
+                    ButtonIsEnabled = false;
                 }
                 else
                 {
@@ -288,6 +302,7 @@ namespace Assignment4.ViewModel
                         MMABooksEntity.mmaBooks.Entry(
                         selectedCustomer).Reference("State1").Load();
                     this.DisplayCustomer();
+                    ButtonIsEnabled = true;
                 }
 
             }

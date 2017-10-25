@@ -101,7 +101,6 @@ C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\bin\Debug\Gala
 C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\bin\Debug\GalaSoft.MvvmLight.Platform.xml
 C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\bin\Debug\Microsoft.Practices.ServiceLocation.xml
-C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\obj\Debug\Assignment4.csprojResolveAssemblyReference.cache
 C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\obj\Debug\MainWindow.g.cs
 C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\obj\Debug\View\AddView.g.cs
 C:\Users\Matthew\Documents\GitHub\CECS475-Assignment4\Assignment4\obj\Debug\View\ModifyView.g.cs
