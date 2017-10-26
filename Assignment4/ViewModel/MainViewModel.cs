@@ -90,6 +90,11 @@ namespace Assignment4.ViewModel
                 SelectedCustomer.ZipCode = customer.ZipCode;
             });
 
+            Messenger.Default.Register<Customer>(this, "clear", (customer) => 
+            {
+                this.ClearControls();
+            });
+
             /// <summary>
             /// Get the customer using the customer ID.
             /// </summary>
@@ -119,9 +124,8 @@ namespace Assignment4.ViewModel
             ModifyCustomerCommand = new RelayCommand(() =>
             {
                 ModifyView modView = new ModifyView();
-                modView.Show();
                 Messenger.Default.Send(SelectedCustomer, "mod");
-                GetCustomer(SelectedCustomer.CustomerID);
+                modView.Show();
             });
 
             /// <summary>

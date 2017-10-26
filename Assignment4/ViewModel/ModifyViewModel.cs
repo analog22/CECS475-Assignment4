@@ -85,10 +85,11 @@ namespace Assignment4.ViewModel
                     catch (DbUpdateConcurrencyException ex)
                     {
                         ex.Entries.Single().Reload();
-                        if (MMABooksEntity.mmaBooks.Entry(SelectedCustomer).State == EntityState.Detached)
+                        if (MMABooksEntity.mmaBooks.Entry(SelectedCustomer).State == EntityState.Detached
+                            || MMABooksEntity.mmaBooks.Entry(SelectedCustomer).State == EntityState.Deleted)
                         {
                             MessageBox.Show("Another user has deleted " + "that customer.", "Concurrency Error");
-
+                            Messenger.Default.Send(SelectedCustomer, "clear");
                             this.ClearControls();
                             if (window != null)
                             {
@@ -98,6 +99,7 @@ namespace Assignment4.ViewModel
                         else
                         {
                             MessageBox.Show("Another user has updated " + "that customer.", "Concurrency Error");
+                            this.ClearControls();
                             if (window != null)
                             {
                                 window.Close();
@@ -107,7 +109,8 @@ namespace Assignment4.ViewModel
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, ex.GetType().ToString());
-;                    }
+                        ;
+                    }
                 }
             });
 
@@ -238,7 +241,7 @@ namespace Assignment4.ViewModel
             NameBox = "";
             AddressBox = "";
             CityBox = "";
-            StateBox = "";
+            SelectedState = null;
             ZipCodeBox = "";
         }
 
