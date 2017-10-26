@@ -71,12 +71,12 @@ warning 6002: The table/view 'C:\USERS\MATTHEW\DOCUMENTS\GITHUB\CECS475-ASSIGNME
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="ZipCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="State" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Name="ZipCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
           <NavigationProperty Name="State1" Relationship="Self.FK_Customers_States" FromRole="Customers" ToRole="States" />
         </EntityType>
         <EntityType Name="State">
