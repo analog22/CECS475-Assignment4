@@ -99,6 +99,7 @@ namespace Assignment4.ViewModel
                         else
                         {
                             MessageBox.Show("Another user has updated " + "that customer.", "Concurrency Error");
+                            Messenger.Default.Send(SelectedCustomer, "reload");
                             this.ClearControls();
                             if (window != null)
                             {

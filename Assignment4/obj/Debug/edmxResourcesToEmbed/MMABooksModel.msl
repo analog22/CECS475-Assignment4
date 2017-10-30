@@ -21,14 +21,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="OrderOptions">
-      <EntityTypeMapping TypeName="MMABooksModel.OrderOption">
-        <MappingFragment StoreEntitySet="OrderOptions">
-          <ScalarProperty Name="SalesTaxRate" ColumnName="SalesTaxRate" />
-          <ScalarProperty Name="FirstBookShipCharge" ColumnName="FirstBookShipCharge" />
-          <ScalarProperty Name="AdditionalBookShipCharge" ColumnName="AdditionalBookShipCharge" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

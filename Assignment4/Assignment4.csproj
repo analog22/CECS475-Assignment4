@@ -112,13 +112,10 @@
       <DependentUpon>MMABooksModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\MMABooksEntity.cs" />
-    <Compile Include="OrderOption.cs">
-      <DependentUpon>MMABooksModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Model\Validator.cs" />
     <Compile Include="State.cs">
       <DependentUpon>MMABooksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Validator.cs" />
     <Compile Include="ViewModel\AddViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ModifyViewModel.cs" />

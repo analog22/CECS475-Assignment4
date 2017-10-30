@@ -16,19 +16,9 @@
     <Key>
       <PropertyRef Name="StateCode" />
     </Key>
-    <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="StateName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StateCode" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
+    <Property Name="StateName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" ConcurrencyMode="Fixed" />
     <NavigationProperty Name="Customers" Relationship="Self.FK_Customers_States" FromRole="States" ToRole="Customers" />
-  </EntityType>
-  <EntityType Name="OrderOption">
-    <Key>
-      <PropertyRef Name="SalesTaxRate" />
-      <PropertyRef Name="FirstBookShipCharge" />
-      <PropertyRef Name="AdditionalBookShipCharge" />
-    </Key>
-    <Property Name="SalesTaxRate" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="FirstBookShipCharge" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-    <Property Name="AdditionalBookShipCharge" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
   </EntityType>
   <Association Name="FK_Customers_States">
     <End Role="States" Type="Self.State" Multiplicity="1" />
@@ -45,7 +35,6 @@
   <EntityContainer Name="MMABooksEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="States" EntityType="Self.State" />
-    <EntitySet Name="OrderOptions" EntityType="Self.OrderOption" />
     <AssociationSet Name="FK_Customers_States" Association="Self.FK_Customers_States">
       <End Role="States" EntitySet="States" />
       <End Role="Customers" EntitySet="Customers" />

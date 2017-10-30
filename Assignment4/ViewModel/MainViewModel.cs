@@ -95,6 +95,11 @@ namespace Assignment4.ViewModel
                 this.ClearControls();
             });
 
+            Messenger.Default.Register<Customer>(this, "reload", (customer) =>
+            {
+                this.GetCustomer(customer.CustomerID);
+            });
+
             /// <summary>
             /// Get the customer using the customer ID.
             /// </summary>
@@ -153,6 +158,7 @@ namespace Assignment4.ViewModel
                     {
                         MessageBox.Show("Another user has deleted " + "that customer.", "Concurrency Error");
                         CustomerIDBox = "";
+                        this.ClearControls();
                     }
                     else
                     {
